@@ -69,7 +69,7 @@ int insere_item_final(Lista* lista, struct itemLista item){
     return 0;
   }
   if (contem_item(lista, item.codigo)==1){
-    return 0;
+    return 2;
   }
   lista->dados[lista->quantidade] = item;
   lista->quantidade++;
@@ -87,7 +87,7 @@ int insere_item_ordenado(Lista* lista, struct itemLista item){
     return 0;
   }
   if (contem_item(lista, item.codigo)==1){
-    return 0;
+    return 2;
   }
 
   int k, i = 0;
@@ -102,31 +102,33 @@ int insere_item_ordenado(Lista* lista, struct itemLista item){
   return 1;
 }
 
-int remove_item(Lista* lista, int codigo){
+int remove_item(Lista* lista, struct itemLista item){
   if (lista == NULL){
-    return -1;
+    return 0;
   }
   if (lista->quantidade == 0){
-    return -1;
-  }
-
-  int k, i = 0;
-  while(i<lista->quantidade && lista->dados[i].codigo != codigo)
-    i++;
-  if (i==lista->quantidade){
-    //elemento nao encontrado
     return 0;
   }
 
-  for (k=i; k<lista->quantidade-1; k++)
-    lista->dados[k] = lista->dados[k+1];
+  int k, i = 0;
+  while(i<lista->quantidade && lista->dados[i].codigo != item.codigo)
+    i++;
+  if (i==lista->quantidade){
+    // elemento nao encontrado
+    return 0;
+  }
+  else{
+    // elemento encontrado na posicao i: reposicionar elementos de i ate k
+    for (k=i; k<lista->quantidade-1; k++)
+      lista->dados[k] = lista->dados[k+1];
 
-  lista->quantidade--;
-  return 1;
+    lista->quantidade--;
+    return 1;
+  }
 }
 
 
-int consuta_item(Lista* lista, int codigo, struct itemLista *item){
+int consulta_item(Lista* lista, struct itemLista item){
   if (lista == NULL){
     return 0;
   }
@@ -135,16 +137,20 @@ int consuta_item(Lista* lista, int codigo, struct itemLista *item){
   }
 
   int i = 0;
-  while(i<lista->quantidade && lista->dados[i].codigo != codigo)
+  while(i<lista->quantidade && lista->dados[i].codigo != item.codigo){
     i++;
+  }
   if (i==lista->quantidade){
     //elemento nao encontrado
     return 0;
   }
-
-  // elemento encontrado na posicao 1:
-  *item = lista->dados[i];
-  return 1;
+  else {
+    // elemento encontrado na posicao 1:
+    printf("%d\n", lista->dados[i].codigo);
+    printf("%s\n", lista->dados[i].descricao);
+    printf("%.2f\n", lista->dados[i].preco);
+    return 1;
+  }
 }
 
 void lista_itens(Lista* lista){
@@ -153,7 +159,7 @@ void lista_itens(Lista* lista){
   }
   int i;
   for (i=0; i<lista->quantidade; i++){
-    printf("%d-%s-%f\n", lista->dados[i].codigo, lista->dados[i].descricao, lista->dados[i].preco);
-    //printf("%s", lista->dados[i].descricao);
+    // Exibir um item por linha no formato indicado
+    printf("%d-%s-%.2f\n", lista->dados[i].codigo, lista->dados[i].descricao, lista->dados[i].preco);
   }
 }

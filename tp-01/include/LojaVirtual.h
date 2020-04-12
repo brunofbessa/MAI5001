@@ -26,6 +26,6 @@ Lista* cria_lista();
 void libera_lista(Lista* lista);
 int insere_item_final(Lista* lista, struct itemLista item);
 int insere_item_ordenado(Lista* lista, struct itemLista item);
-int remove_item(Lista* lista, int codigo);
-//int consuta_item(Lista* lista, int codigo, struct itemLista *item);
+int remove_item(Lista* lista, struct itemLista item);
+int consulta_item(Lista* lista, struct itemLista item);
 void lista_itens(Lista* lista);
