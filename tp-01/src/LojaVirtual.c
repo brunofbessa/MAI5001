@@ -5,7 +5,7 @@
 
 struct lista{
   int quantidade;
-  struct itemLista dados[];
+  struct itemLista dados[MAX];
 };
 
 Lista* cria_lista(){
@@ -62,6 +62,9 @@ int insere_item_final(Lista* lista, struct itemLista item){
   if (lista == NULL){
     return 0;
   }
+  if (lista->quantidade == MAX){
+    return 0;
+  }
   if (item.codigo<0 || item.codigo>9999){
     return 0;
   }
@@ -78,6 +81,9 @@ int insere_item_final(Lista* lista, struct itemLista item){
 
 int insere_item_ordenado(Lista* lista, struct itemLista item){
   if (lista == NULL){
+    return 0;
+  }
+  if (lista->quantidade == MAX){
     return 0;
   }
   if (item.codigo<0 || item.codigo>9999){
@@ -128,7 +134,7 @@ int remove_item(Lista* lista, struct itemLista item){
 }
 
 
-int consulta_item(Lista* lista, struct itemLista item){
+int consulta_item(Lista* lista, struct itemLista item, struct itemLista *itembusca){
   if (lista == NULL){
     return 0;
   }
@@ -145,10 +151,8 @@ int consulta_item(Lista* lista, struct itemLista item){
     return 0;
   }
   else {
-    // elemento encontrado na posicao 1:
-    printf("%d\n", lista->dados[i].codigo);
-    printf("%s\n", lista->dados[i].descricao);
-    printf("%.2f\n", lista->dados[i].preco);
+    // elemento encontrado na posicao i. Valores da estrutura sao passados por endereco ao ponteiro argumento:
+    *itembusca = lista->dados[i];
     return 1;
   }
 }
@@ -160,6 +164,6 @@ void lista_itens(Lista* lista){
   int i;
   for (i=0; i<lista->quantidade; i++){
     // Exibir um item por linha no formato indicado
-    printf("%d-%s-%.2f\n", lista->dados[i].codigo, lista->dados[i].descricao, lista->dados[i].preco);
+    printf("%d - %s - %.2f\n", lista->dados[i].codigo, lista->dados[i].descricao, lista->dados[i].preco);
   }
 }

@@ -55,14 +55,18 @@ int entrada_dados(char comando, Lista* lista){
 
     case 'C':
       // Consulta pelo codigo
-      scanf("%d", &i.codigo);
 
-      status = consulta_item(lista, i);
+      scanf("%d", &i.codigo);
+      struct itemLista itembusca;
+      status = consulta_item(lista, i, &itembusca);
       if (status == 0){
         printf("Erro\n");
       }
       if (status == 1){
         printf("Ok\n");
+        printf("%d\n", itembusca.codigo);
+        printf("%s\n", itembusca.descricao);
+        printf("%.2f\n", itembusca.preco);
       }
       break;
 
@@ -96,8 +100,8 @@ int main(){
   scanf("%c", &comando);
 
   while (comando!='F'){
-    // Inicio do laco de captura de comandos do usuario (Encerra quando for inserido comando F)
-    if (comando=='\n'){
+    // Inicio do laco de captura de comandos do usuario (Encerra quando for inserido comando F
+    if (comando=='\n' || comando=='\0' || comando=='\r'){
       // sem acao
     }
     else if (!(comando=='I' || comando=='O' || comando=='C' || comando=='R' || comando=='L')){
@@ -109,10 +113,10 @@ int main(){
     }
     // Obtento nova entrada
     scanf("%c", &comando);
-
   } //end-while
 
   // Termino do programa
+  libera_lista(lista);
   printf("Fim\n");
   return 0;
 } //end-main

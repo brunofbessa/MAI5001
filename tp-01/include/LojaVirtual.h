@@ -11,10 +11,10 @@ C = Consulta (pelo código do produto)
 R = Remove (pelo código do produto)
 L = Lista Produtos (todos)
 F = Fim
-
 */
-#include <stdio.h>
 
+#include <stdio.h>
+#define MAX 100
 struct itemLista{
   int codigo;
   char descricao[40];
@@ -27,5 +27,5 @@ void libera_lista(Lista* lista);
 int insere_item_final(Lista* lista, struct itemLista item);
 int insere_item_ordenado(Lista* lista, struct itemLista item);
 int remove_item(Lista* lista, struct itemLista item);
-int consulta_item(Lista* lista, struct itemLista item);
+int consulta_item(Lista* lista, struct itemLista item, struct itemLista *itembusca);
 void lista_itens(Lista* lista);
