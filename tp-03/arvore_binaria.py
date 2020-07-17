@@ -1,3 +1,5 @@
+__author__ = "Bruno F. Bessa"
+__email__ = "bruno.fernandes.oliveir@usp.br"
 
 class Nodo:
 

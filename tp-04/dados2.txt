@@ -1,0 +1,6 @@
+One,Um
+Two,Dois
+Three,Tres
+Four,Quatro
+Five,Cinco
+$,$

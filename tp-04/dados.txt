@@ -1,0 +1,6 @@
+The,O
+Book,Livro
+Is,Esta
+On,Sobre
+Table,Mesa
+$,$
