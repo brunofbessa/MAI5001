@@ -1,0 +1,7 @@
+Fulana,1991,111.11
+Ciclana,1992,222.22
+Beltrana,1993,333.33
+Fulano,1994,444.44
+Ciclano,1995,555.55
+Beltrano,1996,666.66
+#
