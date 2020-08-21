@@ -57,18 +57,19 @@ class HashTable:
             nodo = nodo.next
         prev.next = Nodo(key,value)
 
-    def find(self,key):
+    def find(self, key_consulta):
         #print('buscando key = ', key)
-        index = self._hashmap(key)
+        index = self._hashmap(key_consulta[0])
         nodo = self.buckets[index]
-        while nodo is not None and nodo.key != key:
-            print(nodo.key)
+        while nodo is not None and nodo.value[0] != key_consulta[1]:
+            #print('procurando: ', key_consulta, 'nodo atual: ', nodo.key, nodo.value)
             nodo = nodo.next
         if nodo is None:
-            #Nao encontrado
+            # Nao encontrado
             return None
         else:
-            return nodo.value
+            # Hashmap encontrado
+            return nodo.value[1]
 
     def remove(self,key):
         index = self._hashmap(key)
@@ -106,8 +107,8 @@ def main():
 
     linhas_arquivo = ler_arquivo()
     for linha in linhas_arquivo:
-        key = linha[0] + '_' + linha[1]
-        value = linha[2]
+        key = linha[0]
+        value = [linha[1],linha[2]]
         H.insere(key, value)
 
     try:
@@ -122,7 +123,7 @@ def main():
                     ano_consulta = input()
                     ano_consulta = ano_consulta.replace(' ', '').replace('\r', '')
 
-                    key_consulta = nome_consulta + '_' + ano_consulta
+                    key_consulta = [nome_consulta, ano_consulta]
 
                     # t1 = datetime.now()
                     valor_consulta = H.find(key_consulta)
